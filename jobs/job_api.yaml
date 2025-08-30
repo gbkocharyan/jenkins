@@ -1,0 +1,15 @@
+- job:
+    name: Api_tests
+    project-type: pipeline
+    description: "API tests with Allure"
+    parameters:
+      - string:
+          name: BRANCH
+          default: "master"
+          description: "Git branch to run tests from"
+    pipeline-scm:
+      scm:
+        - git:
+            url: https://github.com/gbkocharyan/OtusApi.git
+            branch: "master"
+            script-path: pipelines/jenkinsfile_api.groovy

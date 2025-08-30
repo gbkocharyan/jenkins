@@ -1,0 +1,15 @@
+- job:
+    name: Mobile_tests
+    project-type: pipeline
+    description: "Mobile tests with Allure"
+    parameters:
+      - string:
+          name: BRANCH
+          default: "master"
+          description: "Git branch to run tests from"
+    pipeline-scm:
+      scm:
+        - git:
+            url: https://github.com/gbkocharyan/appium.git
+            branch: "master"
+            script-path: pipelines/jenkinsfile_mobile.groovy
