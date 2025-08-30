@@ -1,7 +1,7 @@
 - job:
     name: upload_jobs
     project-type: pipeline
-    description: "Upload Jenkins jobs using Groovy script"
+    description: "Upload Jenkins jobs"
     parameters:
       - string:
           name: "BRANCH"
