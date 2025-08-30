@@ -7,7 +7,7 @@ node('maven') {
     }
 
     stage('Checkout Repo') {
-        git branch: 'main', url: 'https://github.com/gbkocharyan/jenkins.git'
+        git branch: 'master', url: 'https://github.com/gbkocharyan/jenkins.git'
     }
 
     stage('Create uploader.ini') {

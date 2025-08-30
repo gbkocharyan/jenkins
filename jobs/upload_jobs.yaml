@@ -5,11 +5,11 @@
     parameters:
       - string:
           name: "BRANCH"
-          default: "main"
+          default: "master"
           description: "Branch to build"
     pipeline-scm:
       scm:
         - git:
             url: https://github.com/gbkocharyan/jenkins.git
-            branch: main
+            branch: "master"
       script-path: pipelines/jobs_uploader.groovy
