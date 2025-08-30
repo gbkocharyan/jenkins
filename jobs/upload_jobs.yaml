@@ -11,5 +11,5 @@
       scm:
         - git:
             url: https://github.com/gbkocharyan/jenkins.git
-            branch: "master"
+            branch: master
       script-path: pipelines/jobs_uploader.groovy

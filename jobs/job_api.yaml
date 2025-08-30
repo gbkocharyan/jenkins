@@ -11,5 +11,5 @@
       scm:
         - git:
             url: https://github.com/gbkocharyan/OtusApi.git
-            branch: "master"
+            branch: master
             script-path: pipelines/jenkinsfile_api.groovy

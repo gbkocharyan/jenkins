@@ -1,1 +1,1 @@
-jenkins-jobs --conf /home/razmik/jenkins/uploader.ini --flush-cache update /home/razmik/jenkins/jobs/
+jenkins-jobs --conf /home/gevorg/jenkins/uploader.ini --flush-cache update /home/gevorg/jenkins/jobs/

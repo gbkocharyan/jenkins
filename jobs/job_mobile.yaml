@@ -11,5 +11,5 @@
       scm:
         - git:
             url: https://github.com/gbkocharyan/appium.git
-            branch: "master"
+            branch: master
             script-path: pipelines/jenkinsfile_mobile.groovy
