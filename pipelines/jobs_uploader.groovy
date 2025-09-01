@@ -1,4 +1,4 @@
-node('maven') {
+node('maven_gev') {
     env.JOBS_DIR = "${WORKSPACE}/jobs"
     env.CONFIG_FILE = "${WORKSPACE}/uploader.ini"
 
