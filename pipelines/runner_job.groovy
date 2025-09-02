@@ -1,4 +1,4 @@
-node('maven') {
+node('maven_gev') {
 
     // Declare build variables
     def apiBuild = null
@@ -9,17 +9,17 @@ node('maven') {
         parallel(
                 'API Tests': {
                     script {
-                        apiBuild = build job: 'Api_tests', propagate: false
+                        apiBuild = build job: 'Api', propagate: false
                     }
                 },
                 'Mobile Tests': {
                     script {
-                        mobileBuild = build job: 'Mobile_tests', propagate: false
+                        mobileBuild = build job: 'Mobile', propagate: false
                     }
                 },
                 'Web Tests': {
                     script {
-                        webBuild = build job: 'Web_tests', propagate: false
+                        webBuild = build job: 'Web', propagate: false
                     }
                 }
         )
@@ -33,7 +33,7 @@ node('maven') {
 
             if (apiBuild != null) {
                 copyArtifacts(
-                        projectName: 'Api_tests',
+                        projectName: 'Api',
                         selector: lastSuccessful(),
                         filter: 'allure-results/**',
                         target: 'allure-results/api',
@@ -43,7 +43,7 @@ node('maven') {
             }
             if (mobileBuild != null) {
                 copyArtifacts(
-                        projectName: 'Mobile_tests',
+                        projectName: 'Mobile',
                         selector: lastSuccessful(),
                         filter: 'allure-results/**',
                         target: 'allure-results/mobile',
@@ -53,7 +53,7 @@ node('maven') {
             }
             if (webBuild != null) {
                 copyArtifacts(
-                        projectName: 'Web_tests',
+                        projectName: 'Web',
                         selector: lastSuccessful(),
                         filter: 'allure-results/**',
                         target: 'allure-results/web',
