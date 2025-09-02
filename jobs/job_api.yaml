@@ -1,5 +1,5 @@
 - job:
-    name: Api_tests
+    name: Api
     project-type: pipeline
     description: "API tests with Allure"
     parameters:

@@ -1,5 +1,5 @@
 - job:
-    name: Mobile_tests
+    name: Mobile
     project-type: pipeline
     description: "Mobile tests with Allure"
     parameters:

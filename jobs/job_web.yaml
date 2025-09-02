@@ -1,5 +1,5 @@
 - job:
-    name: Web_tests
+    name: Web
     project-type: pipeline
     description: "Web tests with Allure"
     parameters:
