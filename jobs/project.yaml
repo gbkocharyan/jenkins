@@ -2,8 +2,8 @@
 - project:
     name: 'job uploader'
     jobs:
-      - Api_tests
-      - Web_tests
-      - Mobile_tests
+      - Api
+      - Web
+      - Mobile
       - upload_jobs
       - runner_job
