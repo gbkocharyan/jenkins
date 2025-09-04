@@ -7,9 +7,9 @@
     filter-queue: true
     job-name:
       - 'upload_jobs'
-      - 'Web tests'
-      - 'Mobile tests'
-      - 'Api tests'
+      - 'UI'
+      - 'Mobile'
+      - 'Api'
     columns:
       - status
       - weather

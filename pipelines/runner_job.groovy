@@ -7,17 +7,17 @@ node('maven_gev') {
 
     stage('Run All Tests in Parallel') {
         parallel(
-                'API Tests': {
+                'API': {
                     script {
                         apiBuild = build job: 'Api', propagate: false
                     }
                 },
-                'Mobile Tests': {
+                'Mobile': {
                     script {
                         mobileBuild = build job: 'Mobile', propagate: false
                     }
                 },
-                'Web Tests': {
+                'UI': {
                     script {
                         webBuild = build job: 'Web', propagate: false
                     }
