@@ -19,7 +19,7 @@ node('maven_gev') {
                 },
                 'UI': {
                     script {
-                        webBuild = build job: 'Web', propagate: false
+                        webBuild = build job: 'UI', propagate: false
                     }
                 }
         )
