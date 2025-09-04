@@ -56,7 +56,7 @@ node('maven_gev') {
                         projectName: 'UI',
                         selector: lastSuccessful(),
                         filter: 'allure-results/**',
-                        target: 'allure-results/web',
+                        target: 'allure-results/ui',
                         flatten: true,
                         optional: true
                 )
