@@ -53,7 +53,7 @@ node('maven_gev') {
             }
             if (webBuild != null) {
                 copyArtifacts(
-                        projectName: 'Web',
+                        projectName: 'UI',
                         selector: lastSuccessful(),
                         filter: 'allure-results/**',
                         target: 'allure-results/web',
@@ -69,7 +69,7 @@ node('maven_gev') {
             allure includeProperties: false, jdk: '', results: [
                     [path: 'allure-results/api'],
                     [path: 'allure-results/mobile'],
-                    [path: 'allure-results/web']
+                    [path: 'allure-results/ui']
             ]
         }
     }
