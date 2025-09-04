@@ -5,11 +5,11 @@
     parameters:
       - string:
           name: BRANCH
-          default: "master"
+          default: "spring"
           description: "Git branch to run tests from"
     pipeline-scm:
       scm:
         - git:
-            url: https://github.com/gbkocharyan/OtusApi.git
-            branch: master
-            script-path: pipelines/jenkinsfile_api.groovy
+            url: https://github.com/gbkocharyan/api_helpers_wiremock.git
+            branch: spring
+            script-path: Jenkinsfile
