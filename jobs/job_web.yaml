@@ -11,11 +11,11 @@
             - firefox
       - string:
           name: BRANCH
-          default: "master"
+          default: "otus-web-spring"
           description: "Git branch to run tests from"
     pipeline-scm:
       scm:
         - git:
             url: https://github.com/gbkocharyan/otus-lesson-web.git
             branch: master
-            script-path: pipelines/jenkinsfile_web.groovy
+            script-path: Jenkinsfile
