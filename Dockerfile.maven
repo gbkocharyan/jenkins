@@ -1,0 +1,25 @@
+FROM jenkins/agent:jdk21
+
+USER root
+
+# Install Maven, Python3, venv, Groovy, and required tools
+RUN apt-get update -y && \
+    apt-get install -y maven python3 python3-venv python3-pip unzip curl groovy ca-certificates gnupg lsb-release && \
+    python3 -m venv /opt/venv && \
+    /opt/venv/bin/pip install --upgrade pip && \
+    /opt/venv/bin/pip install jenkins-job-builder
+
+# Add virtual environment to PATH
+ENV PATH="/opt/venv/bin:$PATH"
+
+# Install Allure Commandline
+ENV ALLURE_VERSION=2.34.1
+RUN curl -L -o /tmp/allure.zip https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.zip && \
+    unzip /tmp/allure.zip -d /opt/ && \
+    rm /tmp/allure.zip && \
+    ln -s /opt/allure-${ALLURE_VERSION}/bin/allure /usr/bin/allure
+
+# Install Docker CLI
+RUN curl -fsSL https://get.docker.com | sh
+
+# Default user will stay root (for Jenkins jobs needing docker build/run)
