@@ -5,11 +5,11 @@
     parameters:
       - string:
           name: BRANCH
-          default: "master"
+          default: "skoda"
           description: "Git branch to run tests from"
     pipeline-scm:
       scm:
         - git:
             url: https://github.com/gbkocharyan/appium.git
-            branch: master
+            branch: skoda
             script-path: Jenkinsfile
