@@ -12,9 +12,9 @@ node('maven_gev') {
                         apiBuild = build job: 'Api', propagate: false
                     }
                 },
-                'Mobile': {
+                'MobileTest': {
                     script {
-                        mobileBuild = build job: 'Mobile', propagate: false
+                        mobileBuild = build job: 'MobileTest', propagate: false
                     }
                 },
                 'UI': {

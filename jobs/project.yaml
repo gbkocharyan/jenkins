@@ -4,6 +4,6 @@
     jobs:
       - Api
       - UI
-      - Mobile
+      - MobileTest
       - upload_jobs
       - runner_job
