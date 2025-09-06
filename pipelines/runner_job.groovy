@@ -43,7 +43,7 @@ node('maven_gev') {
             }
             if (mobileBuild != null) {
                 copyArtifacts(
-                        projectName: 'Mobile',
+                        projectName: 'MobileTest',
                         selector: lastSuccessful(),
                         filter: 'allure-results/**',
                         target: 'allure-results/mobile',
