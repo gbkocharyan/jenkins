@@ -1,43 +1,26 @@
 pipeline {
     agent { label 'maven_gev' }
 
-    // Declare build variables
-    def apiBuild = null
-    def mobileBuild = null
-    def webBuild = null
-
     parameters {
-        booleanParam(name: 'RUN_API', defaultValue: true, description: 'Run API Tests')
-        booleanParam(name: 'RUN_MOBILE', defaultValue: true, description: 'Run Mobile Tests')
-        booleanParam(name: 'RUN_UI', defaultValue: true, description: 'Run UI Tests')
+        choice(name: 'RUN_TESTS', choices: ['API', 'Mobile', 'Web'], description: 'Select which tests to run')
     }
 
     stages {
-        stage('Run Selected Tests in Parallel') {
+        stage('Run Selected Tests') {
             steps {
                 script {
-                    def branches = [:]
+                    def apiBuild = null
+                    def mobileBuild = null
+                    def webBuild = null
 
-                    if (params.RUN_API) {
-                        branches['API'] = {
-                            apiBuild = build job: 'Api', propagate: false
-                        }
+                    if (params.RUN_TESTS == 'API') {
+                        apiBuild = build job: 'api_tests', wait: true
                     }
-                    if (params.RUN_MOBILE) {
-                        branches['MobileTest'] = {
-                            mobileBuild = build job: 'MobileTest', propagate: false
-                        }
+                    if (params.RUN_TESTS == 'Mobile') {
+                        mobileBuild = build job: 'mobile_tests', wait: true
                     }
-                    if (params.RUN_UI) {
-                        branches['UI'] = {
-                            webBuild = build job: 'UI', propagate: false
-                        }
-                    }
-
-                    if (branches) {
-                        parallel branches
-                    } else {
-                        echo "⚠️ No tests selected, skipping execution"
+                    if (params.RUN_TESTS == 'Web') {
+                        webBuild = build job: 'web_tests', wait: true
                     }
                 }
             }
