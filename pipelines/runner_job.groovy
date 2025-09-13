@@ -11,9 +11,15 @@ pipeline {
         stage('Init') {
             steps {
                 script {
-                    apiBuild = null
-                    mobileBuild = null
-                    webBuild = null
+                    // declare variables once
+                    def apiBuild = null
+                    def mobileBuild = null
+                    def webBuild = null
+
+                    // stash them in binding so they are visible in later stages
+                    this.binding.setVariable("apiBuild", apiBuild)
+                    this.binding.setVariable("mobileBuild", mobileBuild)
+                    this.binding.setVariable("webBuild", webBuild)
                 }
             }
         }
@@ -25,17 +31,20 @@ pipeline {
 
                     if (params.RUN_API) {
                         branches['API'] = {
-                            apiBuild = build job: 'Api', propagate: false
+                            def buildResult = build job: 'Api', propagate: false
+                            this.binding.setVariable("apiBuild", buildResult)
                         }
                     }
                     if (params.RUN_MOBILE) {
                         branches['MobileTest'] = {
-                            mobileBuild = build job: 'MobileTest', propagate: false
+                            def buildResult = build job: 'MobileTest', propagate: false
+                            this.binding.setVariable("mobileBuild", buildResult)
                         }
                     }
                     if (params.RUN_UI) {
                         branches['UI'] = {
-                            webBuild = build job: 'UI', propagate: false
+                            def buildResult = build job: 'UI', propagate: false
+                            this.binding.setVariable("webBuild", buildResult)
                         }
                     }
 
@@ -51,6 +60,10 @@ pipeline {
         stage('Collect Allure Results') {
             steps {
                 script {
+                    def apiBuild = this.binding.hasVariable("apiBuild") ? this.binding.getVariable("apiBuild") : null
+                    def mobileBuild = this.binding.hasVariable("mobileBuild") ? this.binding.getVariable("mobileBuild") : null
+                    def webBuild = this.binding.hasVariable("webBuild") ? this.binding.getVariable("webBuild") : null
+
                     if (apiBuild) {
                         copyArtifacts(
                                 projectName: 'Api',
@@ -88,6 +101,10 @@ pipeline {
         stage('Generate Allure Report') {
             steps {
                 script {
+                    def apiBuild = this.binding.hasVariable("apiBuild") ? this.binding.getVariable("apiBuild") : null
+                    def mobileBuild = this.binding.hasVariable("mobileBuild") ? this.binding.getVariable("mobileBuild") : null
+                    def webBuild = this.binding.hasVariable("webBuild") ? this.binding.getVariable("webBuild") : null
+
                     def results = []
                     if (apiBuild) results << [path: 'allure-results/api']
                     if (mobileBuild) results << [path: 'allure-results/mobile']
