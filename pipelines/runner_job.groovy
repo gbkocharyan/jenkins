@@ -13,14 +13,14 @@ pipeline {
                     def mobileBuild = null
                     def webBuild = null
 
-                    if (params.RUN_TESTS == 'API') {
-                        apiBuild = build job: 'api_tests', wait: true
+                    if (params.RUN_TESTS == 'Api') {
+                        apiBuild = build job: 'Api', wait: true
                     }
-                    if (params.RUN_TESTS == 'Mobile') {
-                        mobileBuild = build job: 'mobile_tests', wait: true
+                    if (params.RUN_TESTS == 'MobileTest') {
+                        mobileBuild = build job: 'MobileTest', wait: true
                     }
                     if (params.RUN_TESTS == 'Web') {
-                        webBuild = build job: 'web_tests', wait: true
+                        webBuild = build job: 'Web', wait: true
                     }
                 }
             }
