@@ -6,16 +6,21 @@ pipeline {
         booleanParam(name: 'RUN_MOBILE', defaultValue: true, description: 'Run Mobile Tests')
         booleanParam(name: 'RUN_UI', defaultValue: true, description: 'Run UI Tests')
     }
-    // Declare build variables
-    def apiBuild = null
-    def mobileBuild = null
-    def webBuild = null
 
     stages {
+        stage('Init') {
+            steps {
+                script {
+                    apiBuild = null
+                    mobileBuild = null
+                    webBuild = null
+                }
+            }
+        }
+
         stage('Run Selected Tests in Parallel') {
             steps {
                 script {
-
                     def branches = [:]
 
                     if (params.RUN_API) {
