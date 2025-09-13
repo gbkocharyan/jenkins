@@ -2,25 +2,42 @@ pipeline {
     agent { label 'maven_gev' }
 
     parameters {
-        choice(name: 'RUN_TESTS', choices: ['API', 'Mobile', 'Web'], description: 'Select which tests to run')
+        booleanParam(name: 'RUN_API', defaultValue: true, description: 'Run API Tests')
+        booleanParam(name: 'RUN_MOBILE', defaultValue: true, description: 'Run Mobile Tests')
+        booleanParam(name: 'RUN_UI', defaultValue: true, description: 'Run UI Tests')
     }
+    // Declare build variables
+    def apiBuild = null
+    def mobileBuild = null
+    def webBuild = null
 
     stages {
-        stage('Run Selected Tests') {
+        stage('Run Selected Tests in Parallel') {
             steps {
                 script {
-                    def apiBuild = null
-                    def mobileBuild = null
-                    def webBuild = null
 
-                    if (params.RUN_TESTS == 'Api') {
-                        apiBuild = build job: 'Api', wait: true
+                    def branches = [:]
+
+                    if (params.RUN_API) {
+                        branches['API'] = {
+                            apiBuild = build job: 'Api', propagate: false
+                        }
                     }
-                    if (params.RUN_TESTS == 'MobileTest') {
-                        mobileBuild = build job: 'MobileTest', wait: true
+                    if (params.RUN_MOBILE) {
+                        branches['MobileTest'] = {
+                            mobileBuild = build job: 'MobileTest', propagate: false
+                        }
                     }
-                    if (params.RUN_TESTS == 'Web') {
-                        webBuild = build job: 'Web', wait: true
+                    if (params.RUN_UI) {
+                        branches['UI'] = {
+                            webBuild = build job: 'UI', propagate: false
+                        }
+                    }
+
+                    if (branches) {
+                        parallel branches
+                    } else {
+                        echo "⚠️ No tests selected, skipping execution"
                     }
                 }
             }
