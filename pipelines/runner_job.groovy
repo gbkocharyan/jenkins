@@ -1,6 +1,11 @@
 pipeline {
     agent { label 'maven_gev' }
 
+    // Declare build variables
+    def apiBuild = null
+    def mobileBuild = null
+    def webBuild = null
+
     parameters {
         booleanParam(name: 'RUN_API', defaultValue: true, description: 'Run API Tests')
         booleanParam(name: 'RUN_MOBILE', defaultValue: true, description: 'Run Mobile Tests')
@@ -11,10 +16,6 @@ pipeline {
         stage('Run Selected Tests in Parallel') {
             steps {
                 script {
-                    // Declare build variables
-                    def apiBuild = null
-                    def mobileBuild = null
-                    def webBuild = null
                     def branches = [:]
 
                     if (params.RUN_API) {
