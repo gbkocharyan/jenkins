@@ -11,6 +11,10 @@ pipeline {
         stage('Run Selected Tests in Parallel') {
             steps {
                 script {
+                    // Declare build variables
+                    def apiBuild = null
+                    def mobileBuild = null
+                    def webBuild = null
                     def branches = [:]
 
                     if (params.RUN_API) {
